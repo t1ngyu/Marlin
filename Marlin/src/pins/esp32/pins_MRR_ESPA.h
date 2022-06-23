@@ -42,17 +42,28 @@
 //
 // Disable I2S stepper stream
 //
-#undef I2S_STEPPER_STREAM
-#undef I2S_WS
-#undef I2S_BCK
-#undef I2S_DATA
-
+#ifdef I2S_STEPPER_STREAM
+  #undef I2S_STEPPER_STREAM
+#endif
+#define I2S_WS              -1
+#define I2S_BCK             -1
+#define I2S_DATA            -1
 //
 // Limit Switches
 //
 #define X_STOP_PIN                            34
 #define Y_STOP_PIN                            35
 #define Z_STOP_PIN                            15
+
+//
+// Enable I2S stepper stream
+//
+#undef I2S_STEPPER_STREAM
+#define I2S_STEPPER_STREAM
+#define I2S_WS                                
+#define I2S_BCK                               
+#define I2S_DATA                              
+#undef LIN_ADVANCE                                // Currently, I2S stream does not work with linear advance
 
 //
 // Steppers

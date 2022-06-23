@@ -43,9 +43,9 @@
 //
 // Limit Switches
 //
-#define X_STOP_PIN                            35
-#define Y_STOP_PIN                            32
-#define Z_STOP_PIN                            33
+#define X_STOP_PIN                            32
+#define Y_STOP_PIN                            33
+#define Z_STOP_PIN                            34
 
 //
 // Enable I2S stepper stream
@@ -60,52 +60,52 @@
 //
 // Steppers
 //
-#define X_STEP_PIN                           129
-#define X_DIR_PIN                            130
-#define X_ENABLE_PIN                         128
+#define X_STEP_PIN                           128
+#define X_DIR_PIN                            129
+#define X_ENABLE_PIN                         16
 //#define X_CS_PIN                            21
 
-#define Y_STEP_PIN                           132
-#define Y_DIR_PIN                            133
-#define Y_ENABLE_PIN                         131
+#define Y_STEP_PIN                           130
+#define Y_DIR_PIN                            131
+#define Y_ENABLE_PIN                X_ENABLE_PIN
 //#define Y_CS_PIN                            22
 
-#define Z_STEP_PIN                           135
-#define Z_DIR_PIN                            136
-#define Z_ENABLE_PIN                         134
+#define Z_STEP_PIN                           132
+#define Z_DIR_PIN                            133
+#define Z_ENABLE_PIN                X_ENABLE_PIN
 //#define Z_CS_PIN                             5  // SS_PIN
 
-#define E0_STEP_PIN                          138
-#define E0_DIR_PIN                           139
-#define E0_ENABLE_PIN                        137
+#define E0_STEP_PIN                          134
+#define E0_DIR_PIN                           135
+#define E0_ENABLE_PIN               X_ENABLE_PIN
 //#define E0_CS_PIN                           21
 
-#define E1_STEP_PIN                          141
-#define E1_DIR_PIN                           142
-#define E1_ENABLE_PIN                        140
+//#define E1_STEP_PIN                          141
+//#define E1_DIR_PIN                           142
+//#define E1_ENABLE_PIN               X_ENABLE_PIN
 //#define E1_CS_PIN                           22
 
-#define Z2_STEP_PIN                          141
-#define Z2_DIR_PIN                           142
-#define Z2_ENABLE_PIN                        140
+//#define Z2_STEP_PIN                          141
+//#define Z2_DIR_PIN                           142
+//#define Z2_ENABLE_PIN                        140
 //#define Z2_CS_PIN                            5
 
 //
 // Temperature Sensors
 //
 #define TEMP_0_PIN                            36  // Analog Input
-#define TEMP_1_PIN                            34  // Analog Input
+//#define TEMP_1_PIN                            34  // Analog Input
 #define TEMP_BED_PIN                          39  // Analog Input
 
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                         145  // 2
-#define FAN_PIN                              146  // 15
-#define HEATER_BED_PIN                       144  // 4
+#define HEATER_0_PIN                         2  // 2
+#define FAN_PIN                              15  // 15
+#define HEATER_BED_PIN                       4  // 4
 
-#define CONTROLLER_FAN_PIN                   147
-//#define E0_AUTO_FAN_PIN                    148  // need to update Configuration_adv.h @section extruder
+//#define CONTROLLER_FAN_PIN                   147
+//#define E0_AUTO_FAN_PIN                    15  // need to update Configuration_adv.h @section extruder
 //#define E1_AUTO_FAN_PIN                    149  // need to update Configuration_adv.h @section extruder
 #define FAN1_PIN                             149
 
@@ -124,9 +124,9 @@
 
 #if HAS_MARLINUI_U8GLIB
 
-  #define LCD_PINS_RS                         13
-  #define LCD_PINS_ENABLE                     17
-  #define LCD_PINS_D4                         16
+  //#define LCD_PINS_RS                         13
+  //#define LCD_PINS_ENABLE                     17
+  //#define LCD_PINS_D4                         16
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
@@ -142,14 +142,14 @@
 
   #else
 
-    #error "Only CR10_STOCKDISPLAY and REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER are currently supported. Comment out this line to continue."
+    //#error "Only CR10_STOCKDISPLAY and REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER are currently supported. Comment out this line to continue."
 
   #endif
 
-  #define BTN_EN1                              0
-  #define BTN_EN2                             12
-  #define BTN_ENC                             14
-
+  #define BTN_EN1                             13
+  #define BTN_EN2                             14
+  #define BTN_ENC                             17
+  #define BEEPER_PIN                          12
 #endif // HAS_MARLINUI_U8GLIB
 
 // Hardware serial pins
@@ -161,3 +161,10 @@
 //#define HARDWARE_SERIAL1_TX                 22
 //#define HARDWARE_SERIAL2_RX                  2
 //#define HARDWARE_SERIAL2_TX                  4
+
+//
+// Filament Runout Sensor
+//
+#ifndef FIL_RUNOUT_PIN
+  #define FIL_RUNOUT_PIN                      35
+#endif
