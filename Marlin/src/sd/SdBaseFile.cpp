@@ -37,6 +37,9 @@
 
 #if ENABLED(SDSUPPORT)
 
+#define DEBUG_OUT 1
+#include "../core/debug_out.h"
+
 #include "SdBaseFile.h"
 
 #include "../MarlinCore.h"
@@ -1149,15 +1152,17 @@ int8_t SdBaseFile::readDir(dir_t *dir, char *longFilename) {
         #if LONG_FILENAME_CHARSIZE > 2
           // Add warning for developers for currently not supported 3-byte cases (Conversion series of 2-byte
           // codepoints to 3-byte in-place will break the rest of filename)
-          #error "Currently filename re-encoding is done in-place. It may break the remaining chars to use 3-byte codepoints."
+          // #error "Currently filename re-encoding is done in-place. It may break the remaining chars to use 3-byte codepoints."
         #endif
 
         // Is there a long filename to decode?
         if (longFilename) {
+          static char temp[LONG_FILENAME_LENGTH];
+          memcpy(temp, longFilename, LONG_FILENAME_LENGTH);
           // Reset n to the start of the long name
           n = 0;
           for (uint16_t idx = 0; idx < (LONG_FILENAME_LENGTH) / 2; idx += 2) {    // idx is fixed since FAT LFN always contains UTF-16LE encoding
-            const uint16_t utf16_ch = longFilename[idx] | (longFilename[idx + 1] << 8);
+            const uint16_t utf16_ch = temp[idx] | (temp[idx + 1] << 8);
             if (0xD800 == (utf16_ch & 0xF800))                                    // Surrogate pair - encode as '_'
               longFilename[n++] = '_';
             else if (0 == (utf16_ch & 0xFF80))                                    // Encode as 1-byte UTF-8 char
@@ -1169,14 +1174,26 @@ int8_t SdBaseFile::readDir(dir_t *dir, char *longFilename) {
             else {
               #if LONG_FILENAME_CHARSIZE > 2                                      // Encode as 3-byte UTF-8 char
                 longFilename[n++] = 0xE0 | ((utf16_ch >> 12) & 0x0F);
-                longFilename[n++] = 0xC0 | ((utf16_ch >>  6) & 0x3F);
-                longFilename[n++] = 0xC0 | ( utf16_ch        & 0x3F);
+                longFilename[n++] = 0x80 | ((utf16_ch >>  6) & 0x3F);
+                longFilename[n++] = 0x80 | ( utf16_ch        & 0x3F);
               #else                                                               // Encode as '_'
                 longFilename[n++] = '_';
               #endif
             }
             if (0 == utf16_ch) break; // End of filename
           } // idx
+          longFilename[n] = 0;
+          static char temp2[LONG_FILENAME_LENGTH];
+          for (int i = 0; i < LONG_FILENAME_LENGTH / 2; i++) {
+            if (temp[i] || temp[i+1])
+              sprintf(&temp2[i*3], "%02x ", temp[i]);
+          }
+          DEBUG_ECHOLN(temp2);
+          for (int i = 0; i < strlen(longFilename); i++) {
+            sprintf(&temp2[i*3], "%02x ", longFilename[i]);
+          }
+          DEBUG_ECHOLN(temp2);
+          DEBUG_ECHO_MSG("LongFileName: size=", strlen(longFilename), " name=", longFilename);
         } // longFilename
       #endif
       return n;

@@ -43,18 +43,18 @@
 //
 // Limit Switches
 //
-#define X_STOP_PIN                            32
-#define Y_STOP_PIN                            33
-#define Z_STOP_PIN                            34
+#define X_STOP_PIN                            37
+#define Y_STOP_PIN                            37
+#define Z_STOP_PIN                            37
 
 //
 // Enable I2S stepper stream
 //
 #undef I2S_STEPPER_STREAM
 #define I2S_STEPPER_STREAM
-#define I2S_WS                                26
-#define I2S_BCK                               25
-#define I2S_DATA                              27
+#define I2S_WS                                38
+#define I2S_BCK                               38
+#define I2S_DATA                              38
 #undef LIN_ADVANCE                                // Currently, I2S stream does not work with linear advance
 
 //
@@ -62,7 +62,7 @@
 //
 #define X_STEP_PIN                           128
 #define X_DIR_PIN                            129
-#define X_ENABLE_PIN                         16
+#define X_ENABLE_PIN                         38
 //#define X_CS_PIN                            21
 
 #define Y_STEP_PIN                           130
@@ -93,16 +93,16 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                            36  // Analog Input
+#define TEMP_0_PIN                            37  // Analog Input
 //#define TEMP_1_PIN                            34  // Analog Input
-#define TEMP_BED_PIN                          39  // Analog Input
+#define TEMP_BED_PIN                          37  // Analog Input
 
 //
 // Heaters / Fans
 //
-#define HEATER_0_PIN                         2  // 2
-#define FAN_PIN                              15  // 15
-#define HEATER_BED_PIN                       4  // 4
+#define HEATER_0_PIN                         34  // 2
+#define FAN_PIN                              34  // 15
+#define HEATER_BED_PIN                       34  // 4
 
 //#define CONTROLLER_FAN_PIN                   147
 //#define E0_AUTO_FAN_PIN                    15  // need to update Configuration_adv.h @section extruder
@@ -112,10 +112,10 @@
 //
 // MicroSD card
 //
-#define SD_MOSI_PIN                           23
-#define SD_MISO_PIN                           19
-#define SD_SCK_PIN                            18
-#define SDSS                                   5
+#define SD_MOSI_PIN                           13
+#define SD_MISO_PIN                           26
+#define SD_SCK_PIN                            14
+#define SDSS                                  15
 #define USES_SHARED_SPI                           // SPI is shared by SD card with TMC SPI drivers
 
 //////////////////////////
@@ -146,10 +146,10 @@
 
   #endif
 
-  #define BTN_EN1                             13
-  #define BTN_EN2                             14
-  #define BTN_ENC                             17
-  #define BEEPER_PIN                          12
+  // #define BTN_EN1                             13
+  // #define BTN_EN2                             14
+  // #define BTN_ENC                             17
+  // #define BEEPER_PIN                          12
 #endif // HAS_MARLINUI_U8GLIB
 
 // Hardware serial pins
